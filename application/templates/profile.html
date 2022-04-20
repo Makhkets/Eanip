@@ -1,0 +1,255 @@
+{% extends 'base.html' %} {% block content %}
+<link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+<style>
+    body {
+        background: url(https://bootstraptema.ru/images/bg/bg-1.png)
+    }
+    
+    #main {
+        padding: 20px;
+    }
+    
+    #real-estates-detail #author img {
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -ms-border-radius: 100%;
+        -o-border-radius: 100%;
+        border-radius: 100%;
+        border: 5px solid #ededed;
+        margin-bottom: 10px;
+    }
+    
+    #real-estates-detail .sosmed-author i.fa {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #ededed;
+        color: #ededed;
+        padding-top: 6px;
+        margin-top: 10px;
+    }
+    
+    .panel-default .panel-heading {
+        background-color: #fff;
+    }
+    
+    #real-estates-detail .slides li img {
+        height: 450px;
+    }
+    
+    .nav-item-bar {
+        margin-top: 17px;
+        margin-left: 20px;
+    }
+    /* navbar navbar-expand-lg navbar-light */
+    
+    .main_menu {
+        background-color: #fff;
+    }
+    
+    .card2 {
+        display: flex;
+        margin-bottom: 25px;
+    }
+    
+    .card2 h2 {
+        font-weight: bold
+    }
+    
+    .card2 img {
+        margin-right: 10px;
+        width: 236px;
+        height: 177px;
+        border: none;
+    }
+    
+    .card2 .card_price {
+        font-weight: bold;
+        margin-bottom: 2px
+    }
+    
+    .card2 .card_adress {
+        color: #909090;
+    }
+    
+    .card2 .card-href {
+        padding-bottom: auto;
+    }
+    
+    .card2 .card_btn {
+        padding: 7px;
+        background-color: rgb(242, 239, 233);
+        color: #000;
+        border: none;
+        font-size: 13px;
+        border-radius: 7px;
+    }
+    
+    @media (max-width: 390px) {
+        .card2 img {
+            margin-right: 10px;
+            width: 125px;
+            height: 62px;
+            border: none;
+        }
+    }
+</style>
+
+<div class="container">
+    <div id="main">
+        <div class="row" id="real-estates-detail">
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <header class="panel-title">
+                            <div class="text-center">
+                                <strong>Пользователь сайта</strong>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center" id="author">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRjZqlgD7-Wv8Fi6437F8MBQqYvts9-nZY8_tTjURyaRoiHTYQHCsDspNsHkrWRrNXmWw&usqp=CAU">
+                            <h3>Василий Понторезов</h3>
+                            <small class="label label-warning">Российская Федерация</small>
+                            <p>Я простой Русский пацан и мне всё по барабану.</p>
+                            <p class="sosmed-author">
+                                <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
+                                <a href="#"><i class="fa fa-google-plus" title="Google Plus"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" title="Linkedin"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <ul id="myTab" class="nav nav-pills">
+                            <li class="active"><a href="#detail" data-toggle="tab">О пользователе</a></li>
+                            <li class=""><a href="#contact" data-toggle="tab">Отправить сообщение</a></li>
+                            <li class=""><a href="#items" data-toggle="tab">Товары</a></li>
+                            <li class=""><a href="#balance" data-toggle="tab">Баланс</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <hr>
+                            <div class="tab-pane fade active in" id="detail">
+                                <h4>История профиля</h4>
+                                <table class="table table-th-block">
+                                    <tbody>
+                                        <tr>
+                                            <td class="active">Зарегистрирован:</td>
+                                            <td>12-06-2016</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Последняя активность:</td>
+                                            <td>12-06-2016 / 09:11</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Страна:</td>
+                                            <td>Россия</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Город:</td>
+                                            <td>Волгоград</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Пол:</td>
+                                            <td>Мужской</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Полных лет:</td>
+                                            <td>43</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Семейное положение:</td>
+                                            <td>Женат</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Рейтинг пользователя:</td>
+                                            <td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="contact">
+                                <p></p>
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>Ваше имя</label>
+                                        <input type="text" class="form-control rounded" placeholder="Укажите Ваше Имя">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ваш телефон</label>
+                                        <input type="text" class="form-control rounded" placeholder="(+7)(095)123456">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail адрес</label>
+                                        <input type="email" class="form-control rounded" placeholder="Ваш Е-майл">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+     <input type="checkbox"> Согласен с условиями
+     </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Текст Вашего сообщения</label>
+                                        <textarea class="form-control rounded" style="height: 100px;"></textarea>
+                                        <p class="help-block">Текст сообщения будет отправлен пользователю</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" data-original-title="" title="">Отправить</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="items">
+                                <div>
+                                    <div class="card2" style="display: flex;">
+                                        <img src="https://01.img.avito.st/image/1/1.8BUzwba_XPxdYbz8X7q7EOZiWvqLZF72jbpdHIdiXvyHJA.l9DOCu32vy4MvaVTLhu-WMMdABmdqJmPU_UxTWRwHCA" alt="">
+                                        <div>
+                                            <h2>Product</h2>
+                                            <p class="card_price">234 ₽</p>
+                                            <p class="card_adress">address</p>
+                                            <a class="card_href" href="">
+                                                <button class="card_btn">Посмотреть товар</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card2 " style="display: flex; ">
+                                        <img src="https://84.img.avito.st/image/1/1.DdWWmba_oTz4OUE8gNFQsUQ6pzouPKM2KOKg3CI6ozwifA.A1D33QVONs37zkzNjVLYx-OB7hiQOAnqD2r6hk5nY_k " alt=" ">
+                                        <div>
+                                            <h2>Product</h2>
+                                            <p class="card_price ">234 ₽</p>
+                                            <p class="card_adress ">address</p>
+                                            <a class="card_href " href=" ">
+                                                <button class="card_btn ">Посмотреть товар</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade " id="balance">
+                                <h2>Пополнить баланс бравл старса</h2>
+                                <form action="/upbalance " method="post ">
+                                    <input name="price ">
+                                    <button>Пополнить баланс</button>
+                                    <input type="submit" name="check " value="Проверить пополнение ">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.main -->
+</div>
+<!-- /.container -->
+{% endblock %}
