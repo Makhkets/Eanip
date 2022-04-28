@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block content %}
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Sales</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Sales</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  
+  
+
+  <!--================Cart Area =================-->
+  <section class="cart_area">
+      <div class="container">
+          <div class="cart_inner">
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th scope="col">Product</th>
+                              <th scope="col">Price</th>
+                              <th scope="col">Contact</th>
+                              <!-- <th scope="col">Total</th> -->
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for element in elements %}
+                            <form action="{{ url_for('sales') }}" method="post">
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="{{ element.img }}" style="width: 150px; height:150px;" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>{{ element.description }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>₽{{ element.price }}</h5>
+                                    </td>
+                                    <td>
+                                            <div class="media-body">
+                                                <p>{{ element.contact }}</p>
+                                                <button type="submit" class="btn btn-danger">Отменить сделку</button>
+                                            </div>
+                                    </td>
+                                    
+                                    <input type="hidden" value="{{ element.item_id }}" name="item_id">
+                                    <input type="hidden" value="{{ element.price }}" name="price">
+                                    <input type="hidden" value="{{ element.seller }}" name="seller">
+                                    <input type="hidden" value="{{ element.buyer }}" name="buyer">
+
+                                    <!-- <td>
+                                        <h5>$720.00</h5>
+                                    </td> -->
+                                </tr>
+                            </form>
+                          {% endfor %}
+                  </table>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!--================End Cart Area =================-->
+
+
+{% endblock %}
