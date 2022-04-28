@@ -44,10 +44,8 @@
                         voluptate. Accusantium, aut dolores est exercitationem harum ipsa minus odit porro rem tenetur vel?</p>
                     <div class="product_count">
 
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
 
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-                        <a class="button primary-btn" href="#">Buy</a>
+                        <a class="button primary-btn" href="{{ url_for('buy', item_id=item_id) }}">Buy</a>
                     </div>
                 </div>
             </div>
@@ -284,14 +282,14 @@
                         <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-1') }}.png" alt=""></a>
                         <div class="desc">
                             <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">$170.00</div>
+                            <div class="price">₽170.00</div>
                         </div>
                     </div>
                     <div class="single-search-product d-flex">
                         <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-2') }}.png" alt=""></a>
                         <div class="desc">
                             <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">$170.00</div>
+                            <div class="price">₽170.00</div>
                         </div>
                     </div>
                     <div class="single-search-product d-flex">

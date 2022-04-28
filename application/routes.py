@@ -1,10 +1,11 @@
-import time
+from datetime import datetime
+from jinja2 import pass_eval_context
 from loguru import logger
 from pyqiwip2p import QiwiP2P
 import requests
 import config
 import random
-import datetime
+
 
 from application.UserLogin import UserLogin as uslg
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -14,12 +15,11 @@ from application import *
 @app.route("/")
 def index():
     try:
-
         with app.app_context():
             db.create_all()
 
         user = models.getUser(current_user.get_id())["username"]
-        return render_template("index.html", username=user, elements=models.GetItems())
+        return render_template("index.html", username=user, elements=models.GetItems(), user_id=current_user.get_id())
     except Exception as ex: return str(ex)
 
 @login_manager.user_loader
@@ -106,13 +106,30 @@ def login():
         return render_template("login.html", username=user)
     except: return "404"
 
-@app.route("/profile")
+@app.route("/profile/<string:user_id>", methods=["GET", "POST"])
 @login_required
-def profile():
-    try:
-        user = models.getUser(current_user.get_id())
-        return render_template("profile.html", username=user["username"], amount=user["balance"], date=user["date"], email=user["email"])
-    except: return "404"
+def profile(user_id):
+    if request.method == "POST":
+        models.ChangeTelegramId(current_user.get_id(), request.form.get("telegram"))
+    
+    user = models.getUser(user_id=int(user_id))
+    elements = models.GetProductsUsernameId(user_id)
+    current_u = models.getUser(current_user.get_id())
+    notfications = models.GetWaitingItems(user_id)
+
+    return render_template(
+                                                    "profile.html",
+                                                    current_username=user["username"],
+                                                    username=current_u["username"],
+                                                    amount=user["balance"],
+                                                    date=user["date"],
+                                                    email=user["email"],
+                                                    ip=user["ip"],
+                                                    elements=elements,
+                                                    telegram=user["telegram"],
+                                                    user_id=user_id,
+                                                    notfications=notfications
+                            )
 
 @app.route("/add-item", methods=["GET", "POST"])
 @login_required
@@ -143,20 +160,10 @@ def ViewItem(item_id):
         user = models.getUser(current_user.get_id())
         comments = models.GetComments(item_id)
 
-        for comment in comments:
-            logger.success(f"username: {comment.contact}")
-            logger.success(f"stars: {comment.stars}")
-            logger.success(f"date: {comment.date}")
-            logger.success(f"description: {comment.description}")
-
-
         user_id = current_user.get_id()
-        
 
         return render_template("single-product.html", comments=comments, user_id=user_id, item_id=item_id, username=user["username"], img=item["img"], title=item["title"], price=item["price"], description=item["description"], )
 
-
-    
     except Exception as ex:
         print(ex)
         return "404"
@@ -239,10 +246,7 @@ def upbalance():
                         qiwi.check(bill_id=receipt).amount
                     )  # Получение суммы платежа в рублях
                     pay_amount = int(pay_amount)
-                    if pay_status == "PAID":
-
-                        logger.success("УСПЕШНАЯ ОПЛАТА")
-                        
+                    if pay_status == "PAID":             
                         models.AddReceipt("#", current_user.get_id()) # Заглушка для проверок пополнений
                         models.AddBalance(current_user.get_id(), int(pay_amount))      # Выдача баланса
 
@@ -265,5 +269,139 @@ def upbalance():
 
     return render_template("checkout.html")
 
-# @login_required - только для зарегистрированных
-# 183812630043
+@app.route("/conclusion", methods=["POST"])
+@login_required
+def conclusion():
+    price = request.form.get("conclusion_price")
+    phone = request.form.get("conclusion_phone")
+
+    models.AddConclusion(int(price), current_user.get_id(), phone)
+
+    return redirect(url_for("profile", user_id=current_user.get_id()))
+ 
+@app.route("/shop", methods=["GET", "POST"])
+def shop():
+    return render_template("category.html")
+
+@app.route("/send_message", methods=["POST"])
+@login_required
+def send_message():
+    name = request.form.get("name")
+    tg_user = request.form.get("message_user")
+    my_tg = request.form.get("my_id")
+    description = request.form.get("description")
+
+    
+    text = f"""
+            🔔 Уведомление.
+            👥 Имя написавшего: {name}
+            👤 USER_ID: {my_tg}
+
+            Сообщение:
+
+            {description}
+            """
+
+    requests.get(f"https://api.telegram.org/bot{config.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id={tg_user}&text={text}")
+
+    return redirect(url_for("profile", user_id=current_user.get_id()))
+
+@app.route("/buy/<int:item_id>", methods=["GET", "POST"])
+def buy(item_id):
+    
+    item = models.GetItemById(item_id)
+    user = models.getUser(current_user.get_id())["username"]
+    item_owner = item["user_id"]
+    owner = models.getUser(item_owner)
+
+
+    if request.method == "POST":
+        price = request.form.get("price")
+        seller = owner["id"]
+        item_for_expiry = models.GetItemById(item_id)
+
+        # models.AddBalance(seller, int(price))
+        models.UnAddBalance(current_user.get_id(), int(price))
+        models.AddExpiryItem(img=item_for_expiry["img"], title=item_for_expiry["title"], description=item_for_expiry["description"][:30], item_id=item_id, contact=item_for_expiry["contact"], buyer=current_user.get_id(), seller=seller, price=item["price"])
+        models.ChangeStatusItem(item_id, "2")
+
+        user = models.getUser(current_user.get_id())["username"]
+        return redirect(url_for("purchases", username=user, user_id=current_user.get_id()))
+
+
+
+    return render_template(
+                                                "confirmation.html",
+                                                username=user,
+                                                
+                                                item_id=item_id,
+                                                number=item_id,
+                                                date=str(datetime.now()).split(" ")[0],
+                                                price=item["price"],
+
+                                                title=item["title"],
+                                                date_item=item["date"],
+        
+                                                seller=owner["username"],
+                                                registred=owner["date"],
+                                                ip=owner["ip"],
+                                                raiting=None,
+
+                                                user_id=current_user.get_id()
+        )
+
+@app.route("/purchases", methods=["POST", "GET"])
+@login_required
+def purchases():
+
+    if request.method == "POST":
+        item_id = request.form.get("item_id")
+        price = request.form.get("price")
+        seller = request.form.get("seller")
+
+        models.AddBalance(seller, int(price))
+        models.DeleteItemExpiry(item_id)
+
+
+    items = models.GetExpiryItemPurchase(current_user.get_id())
+    return render_template("purchases.html", elements=items)
+        
+@app.route("/sales", methods=["POST", "GET"])
+@login_required
+def sales():
+    
+    if request.method == "POST":
+        item_id = request.form.get("item_id")
+        price = request.form.get("price")
+        seller = request.form.get("seller")
+        buyer = request.form.get("buyer")
+
+        models.AddBalance(buyer, int(price))
+        models.DeleteItemExpiry(item_id)
+        models.ChangeStatusItem(item_id, "1")
+
+        # models.AddBalance()
+
+    items = models.GetExpiryItemSales(current_user.get_id())
+    return render_template("sales.html", elements=items)
+
+
+@app.route("/products")
+def products():
+    return render_template("category.html")
+
+@app.route("/find", methods=["GET", "POST"])
+def find():
+
+    if request.method == "POST":
+        
+        categories = request.form.get("BrowseCategories").split("<span>")[0]
+        brands = request.form.get("Brands").split("<span>")[0]
+        color = request.form.get("Color").split("<span>")[0]
+        price = request.form.get("Price").split("<span>")[0]
+
+        logger.success(f"categories: {categories} | brand: {brands} | color: {color} | price: {price}")
+
+    return render_template("category.html")
+
+
