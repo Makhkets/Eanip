@@ -23,10 +23,13 @@
     <div class="container">
         <div class="row s_product_inner">
             <div class="col-lg-6">
-                <div class="owl-carousel owl-theme s_Product_carousel">
+                <div>
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="{{ img }}" alt="">
+                        <img class="img-fluid" src="https://preview.colorlib.com/theme/aroma/img/category/xs-p1.jpg.pagespeed.ic.1dcktNEdKa.webp" alt="">
                     </div>
+
+
+
                     <!-- <div class="single-prd-item">
 							<img class="img-fluid" src="{{ url_for('static', filename='img/category/s-p1.jpg') }}" alt="">
 						</div>
@@ -37,9 +40,13 @@
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>{{ title }}</h3>
-                    <h2>₽{{price}}</h2>
-
+                    <h3>{{ product.title }}</h3>
+                    <h2>₽{{ product.price }}</h2>
+                    <ul class="list">
+                        <li><a class="active" href="#"><span>Категория</span> : {{ product.categories }}</a></li>
+                        <li><a class="active" href="#"><span>Контакты</span> : {{ product.contact }}</a></li>
+                        <li><a href="/profile/{{ product.user_id }}"><span>Продавец</span> : Нажмите чтобы перейти на профиль продавца</a></li>
+                        </ul>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium cumque ducimus fuga incidunt molestiae nobis placeat quas temporibus voluptate. Accusamus aperiam corporis cum dolore ducimus enim hic, maiores praesentium suscipit
                         voluptate. Accusantium, aut dolores est exercitationem harum ipsa minus odit porro rem tenetur vel?</p>
                     <div class="product_count">
@@ -69,7 +76,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <p>{{ description }}</p>
+                <p>{{ product.description }}</p>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="table-responsive">

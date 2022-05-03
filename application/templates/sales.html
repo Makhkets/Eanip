@@ -51,8 +51,8 @@
                                         <h5>₽{{ element.price }}</h5>
                                     </td>
                                     <td>
+                                        <a href="/profile/{{ element.buyer }}">Посмотреть информацию об покупателе</a>
                                             <div class="media-body">
-                                                <p>{{ element.contact }}</p>
                                                 <button type="submit" class="btn btn-danger">Отменить сделку</button>
                                             </div>
                                     </td>
@@ -66,6 +66,7 @@
                                         <h5>$720.00</h5>
                                     </td> -->
                                 </tr>
+                                
                             </form>
                           {% endfor %}
                   </table>

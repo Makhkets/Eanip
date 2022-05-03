@@ -279,10 +279,21 @@
                                                     <td><input type="text" class="form-control rounded" placeholder="Укажите Ваш USER_ID" name="telegram" value="{{ telegram }}"></td>
                                                     <td><button type="submit" class="btn btn-success" data-original-title="" title="">Сохранить</button></td>
                                                 </form>
+                                                <tr>
+                                                <td class="active">Введите ваши контакты:</td>
+                                                <form action="{{ url_for('set_contact') }}" method="post">
+                                                    <td><input type="text" class="form-control rounded" placeholder="Укажите ваши контакты" name="contactt" value="{{ contactt }}"></td>
+                                                    <td><button type="submit" class="btn btn-success" data-original-title="" title="">Сохранить</button></td>
+                                                </form>
+                                                </tr>
                                             {% else %}
 
                                                 <td class="active">UserId для отправки сообщения:</td>
                                                 <td>{{ telegram }}</td>
+                                                <tr>
+                                                    <td class="active">Контакты:</td>
+                                                    <td>{{ contactt }}</td>
+                                                </tr>
                                             {% endif %}
                                         </tr>
                                         <tr>

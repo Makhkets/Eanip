@@ -1,11 +1,9 @@
 from datetime import datetime
-from jinja2 import pass_eval_context
 from loguru import logger
 from pyqiwip2p import QiwiP2P
 import requests
 import config
 import random
-
 
 from application.UserLogin import UserLogin as uslg
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -106,6 +104,13 @@ def login():
         return render_template("login.html", username=user)
     except: return "404"
 
+@app.route("/set-contact", methods=["POST"])
+def set_contact():
+    
+    contact = request.form.get("contactt")
+    models.UpdateContacts(contact, current_user.get_id())
+    return redirect("/profile/" + current_user.get_id())
+
 @app.route("/profile/<string:user_id>", methods=["GET", "POST"])
 @login_required
 def profile(user_id):
@@ -128,7 +133,8 @@ def profile(user_id):
                                                     elements=elements,
                                                     telegram=user["telegram"],
                                                     user_id=user_id,
-                                                    notfications=notfications
+                                                    notfications=notfications,
+                                                    contactt=user["contact"]
                             )
 
 @app.route("/add-item", methods=["GET", "POST"])
@@ -142,8 +148,28 @@ def AddItem():
             description = request.form.get("description")
             img = request.form.get("img")
 
+            categories = request.form.get("gender")
+            color = request.form.get("color")
+            condition = request.form.get("condition")
+
+            categories = config.categories[categories]
+            color = config.colors[color]
+            condition = config.conditions[condition]
+
+            
+
             user = models.getUser(current_user.get_id())
-            models.AddItemToBase(title=title, description=description, price=price, contact=contact, user_id=user["id"], img=img)
+            models.AddItemToBase(
+                                                                    title=title,
+                                                                    description=description,
+                                                                    price=price,
+                                                                    contact=contact,
+                                                                    user_id=user["id"],
+                                                                    img=img,
+                                                                    color=color,
+                                                                    categories=categories,
+                                                                    condition=condition
+                                )
 
         else:
             user = models.getUser(current_user.get_id())
@@ -151,22 +177,17 @@ def AddItem():
 
         user = models.getUser(current_user.get_id())
         return render_template("tracking-order.html", username=user["username"])
-    except: return "404"
+    except Exception as ex: return str(ex)
 
 @app.route("/item/<string:item_id>")
 def ViewItem(item_id):
-    try:
-        item = models.GetItemById(item_id)
-        user = models.getUser(current_user.get_id())
-        comments = models.GetComments(item_id)
 
-        user_id = current_user.get_id()
+    item = models.GetItemByIdDEF(item_id)
+    comments = models.GetComments(item_id)
+    user = models.getUser(user_id=current_user.get_id())
 
-        return render_template("single-product.html", comments=comments, user_id=user_id, item_id=item_id, username=user["username"], img=item["img"], title=item["title"], price=item["price"], description=item["description"], )
 
-    except Exception as ex:
-        print(ex)
-        return "404"
+    return render_template("single-product.html", username=user["username"], comments=comments, user_id=current_user.get_id(), item_id=item_id, product=item)
 
 @app.route("/add-comment", methods=["POST"])
 @login_required
@@ -281,7 +302,7 @@ def conclusion():
  
 @app.route("/shop", methods=["GET", "POST"])
 def shop():
-    return render_template("category.html")
+    return render_template("category.html", username=models.getUser(current_user.get_id())["username"])
 
 @app.route("/send_message", methods=["POST"])
 @login_required
@@ -364,7 +385,7 @@ def purchases():
 
 
     items = models.GetExpiryItemPurchase(current_user.get_id())
-    return render_template("purchases.html", elements=items)
+    return render_template("purchases.html", elements=items, username=models.getUser(current_user.get_id())["username"])
         
 @app.route("/sales", methods=["POST", "GET"])
 @login_required
@@ -380,15 +401,17 @@ def sales():
         models.DeleteItemExpiry(item_id)
         models.ChangeStatusItem(item_id, "1")
 
-        # models.AddBalance()
 
+    
     items = models.GetExpiryItemSales(current_user.get_id())
-    return render_template("sales.html", elements=items)
-
+    return render_template("sales.html", elements=items, username=models.getUser(current_user.get_id())["username"])
 
 @app.route("/products")
 def products():
-    return render_template("category.html")
+
+    products = models.GetElementFind("Без разницы", "Без разницы", "Без разницы", "Без разницы")
+    
+    return render_template("category.html", products=products, username=models.getUser(current_user.get_id())["username"])
 
 @app.route("/find", methods=["GET", "POST"])
 def find():
@@ -396,12 +419,21 @@ def find():
     if request.method == "POST":
         
         categories = request.form.get("BrowseCategories").split("<span>")[0]
-        brands = request.form.get("Brands").split("<span>")[0]
+        condition = request.form.get("Brands").split("<span>")[0]
         color = request.form.get("Color").split("<span>")[0]
         price = request.form.get("Price").split("<span>")[0]
 
-        logger.success(f"categories: {categories} | brand: {brands} | color: {color} | price: {price}")
+        if len(categories) <= 1: categories = "Без разницы"
+        if len(condition) <= 1: condition = "Без разницы"
+        if len(color) <= 1: color = "Без разницы"
+        
 
-    return render_template("category.html")
 
 
+        products = models.GetElementFind(categories=categories, condition=condition, color=color, price=price)
+
+        return render_template("category.html", products=products, username=models.getUser(current_user.get_id())["username"])
+
+
+    else:
+        return "Доступ закрыт!"

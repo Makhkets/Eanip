@@ -2,7 +2,6 @@ from flask import Flask, request
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
-from cloudipsp import Api, Checkout
 
 
 

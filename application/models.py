@@ -1,11 +1,8 @@
-from email.policy import default
-import string
+
 from loguru import logger
 from datetime import datetime
+
 from application import *
-
-
-
 
 
 class Users(db.Model):
@@ -22,9 +19,10 @@ class Users(db.Model):
     ip = db.Column(db.String, nullable=False)
     user_id_telegram = db.Column(db.String)
     receipt = db.Column(db.String)
+    contact = db.Column(db.String)
 
     def __repr__(self):
-        return f"{self.id}:{self.email}:{self.username}:{self.password}:{self.balance}:{str(self.date).split(' ')[0]}:{self.receipt}:{self.ip}:{self.user_id_telegram}"
+        return f"{self.id}:{self.email}:{self.username}:{self.password}:{self.balance}:{str(self.date).split(' ')[0]}:{self.receipt}:{self.ip}:{self.user_id_telegram}:{self.contact}"
 
 class Items(db.Model):
 
@@ -42,8 +40,12 @@ class Items(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     view = db.Column(db.String, default="1") # active - 1, waiting - 2, close - 3
 
+    color = db.Column(db.String, nullable=False)
+    categories = db.Column(db.String, nullable=False)
+    condition = db.Column(db.String, nullable=False)
+
     def __repr__(self):
-        return f"{self.id}|{self.img}|{self.contact}|{self.title}|{self.description}|{self.price}|{self.user_id}|{str(self.date).split(' ')[0]}"
+        return f"{self.id}|{self.img}|{self.contact}|{self.title}|{self.description}|{self.price}|{self.user_id}|{str(self.date).split(' ')[0]}|{self.categories}"
 
 class Comments(db.Model):
 
@@ -103,7 +105,8 @@ def getUser(user_id):
             "balance" : info[4],
             "date" : info[5],
             "ip" : info[7],
-            "telegram" : info[8]
+            "telegram" : info[8],
+            "contact" : info[9]
         }
 
     except:
@@ -187,10 +190,25 @@ def ChangeTelegramId(user_id, user_id_tg):
     u.user_id_telegram = user_id_tg
     db.session.commit()
 
+def UpdateContacts(contact, user_id):
+    user = Users.query.filter(user_id == user_id).first()
+    user.contact = contact
+    db.session.commit()
+    
 ##############  TABLE 'ITEMS' ###################
-def AddItemToBase(title, description, price, contact, user_id, img):
+def AddItemToBase(title, description, price, contact, user_id, img, color, categories, condition):
 
-    item = Items(title=title, description=description, price=price, user_id=user_id, contact=contact, img=img)
+    item = Items(
+                                                    title=title, 
+                                                    description=description, 
+                                                    price=price, 
+                                                    user_id=user_id, 
+                                                    contact=contact,
+                                                    img=img, 
+                                                    color=color, 
+                                                    categories=categories, 
+                                                    condition=condition
+                )
     db.session.add(item)
     db.session.commit()
 
@@ -210,6 +228,9 @@ def GetItemById(id):
         "date" : item[7]
     }
 
+def GetItemByIdDEF(item_id):
+    return Items.query.filter(Items.id == item_id).first()
+
 def GetItems():
 
     lst = []
@@ -217,7 +238,9 @@ def GetItems():
 
     items.reverse()
 
-    for item in items[:4]:
+    for item in items:
+
+
         item = str(item).split("|")
         lst.append({
             "id" : item[0],
@@ -226,8 +249,10 @@ def GetItems():
             "title" : item[3],
             "description" : item[4],
             "price" : item[5],
-            "user_id" : item[6]
+            "user_id" : item[6],
+            "categories" : item[8]
         })
+
 
     return lst
 
@@ -239,6 +264,33 @@ def ChangeStatusItem(item_id, number):
 
 def GetWaitingItems(user_id):
     return Items.query.filter(Items.user_id == user_id).filter(Items.view == "2").all()
+
+def GetElementFind(categories, condition, color, price):
+    
+    if price == "Без разницы":
+        return Items.query.all()
+
+    price1 = int(str(price).split(",")[0].split(".")[0])
+    price2 = int(str(price).split(",")[1].split(".")[0])
+
+    if categories == "Без разницы" and condition == "Без разницы" and color == "Без разницы":
+        return Items.query.all()
+    elif categories != "Без разницы" and condition != "Без разницы" and color != "Без разницы":
+        return Items.query.filter(Items.categories == categories).filter(Items.condition == condition).filter(Items.color == color).filter(Items.price > price1).filter(Items.price < price2).all()
+    elif len(categories) > 1 and condition == "Без разницы" and color == "Без разницы":
+        return Items.query.filter(Items.categories == categories).all()
+    elif len(condition) > 1 and categories == "Без разницы" and color == "Без разницы":
+        return Items.query.filter(Items.condition == condition).all()
+    elif len(color) > 1 and categories == "Без разницы" and condition == "Без разницы":
+        return Items.query.filter(Items.color == color).all()
+    elif len(categories) > 1 and len(condition) > 1 and color == "Без разницы":
+        return Items.query.filter(Items.categories == categories).filter(Items.condition == condition).all()
+    elif len(categories) > 1 and len(color) > 1 and condition == "Без разницы":
+        return Items.query.filter(Items.categories == categories).filter(Items.color == color).all()
+    elif len(condition) > 1 and len(color) > 1 and categories == "Без разницы":
+        return Items.query.filter(Items.condition == condition).filter(Items.color == color).all()
+
+    return Items.query.all()
 
 ##############  TABLE 'COMMENTS' ###################
 def AddComment(item_id, user_id, stars, description, contact):

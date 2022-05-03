@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: response-report
+Version: 1.1.1
+Summary: Save the response from the server. This may be needed when debugging.
+Home-page: https://gitlab.com/whiteapfel/response_report
+Author: WhiteApfel
+Author-email: white@pfel.ru
+License: Mozilla Public License 2.0
+Project-URL: Donate, https://pfel.cc/donate
+Project-URL: Telegram, https://t.me/apfel
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: httpx (>=0.18.2)
+Requires-Dist: setuptools (>=57.4.0)
+Requires-Dist: typing (>=3.7.4.3)
+Requires-Dist: requests (>=2.26.0)
+
+# Response Report
+
+Save the httpx-response from the server. This may be needed when debugging.
+
+```python
+from httpx import Client
+from response_report import Reporter
+
+client = Client()
+
+response = client.get("https://pfel.cc/donate")
+
+Reporter(response).save('donate_report.txt')
+```
+

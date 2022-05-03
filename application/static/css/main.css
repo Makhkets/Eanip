@@ -518,6 +518,7 @@ a {
     }
 
     .navbar .container {
+        display: block;
         padding-left: 15px;
         padding-right: 15px
     }
@@ -4824,3 +4825,4 @@ a {
         padding-bottom: 115px !important
     }
 }
+
