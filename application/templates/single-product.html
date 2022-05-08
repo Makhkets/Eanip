@@ -25,10 +25,8 @@
             <div class="col-lg-6">
                 <div>
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="https://preview.colorlib.com/theme/aroma/img/category/xs-p1.jpg.pagespeed.ic.1dcktNEdKa.webp" alt="">
+                        <img class="img-fluid" style="width: 100%;" src="{{ product.img }}" alt="">
                     </div>
-
-
 
                     <!-- <div class="single-prd-item">
 							<img class="img-fluid" src="{{ url_for('static', filename='img/category/s-p1.jpg') }}" alt="">
@@ -225,8 +223,8 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="review_box">
-                            <h4>Post comment</h4>
-                            <p>Your Rating:</p>
+                            <h4>Введите текст комментария</h4>
+                            <p>Рейтинг:</p>
                             <ul class="list">
                                 <li>
                                     <img id="star-rate1" data-value="1" src="../static/img/star.png" alt="" style=" width: 20px; height: 20px">
@@ -244,7 +242,6 @@
                                     <img id="star-rate5" data-value="5" src="../static/img/star.png" alt="" style=" width: 20px; height: 20px">
                                 </li>
                             </ul>
-                            <p>Outstanding</p>
 
 
 
@@ -276,117 +273,73 @@
 
 
 <!--================ Start related Product area =================-->
-<section class="related-product-area section-margin--small mt-0">
+<section class="related-product-area">
     <div class="container">
         <div class="section-intro pb-60px">
-            <p>Popular Item in the market</p>
-            <h2>Top <span class="section-intro__style">Product</span></h2>
+            <!-- <p> Item in the market</p> -->
+            <h2><span class="section-intro__style">Рекомендуем</span></h2>
         </div>
         <div class="row mt-30">
             <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
                 <div class="single-search-product-wrapper">
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-1') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
+                    {% for recom in recomended[:3] %}
+                        <div class="single-search-product d-flex">
+                            <a href="item/{{ recom.id }}"><img src="{{ recom.img }}" alt=""></a>
+                            <div class="desc">
+                                <a href="item/{{ recom.id }}" class="title">{{ recom.title }}</a>
+                                <div class="price">₽{{ recom.price }}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-2') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-3') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
-            <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                <div class="single-search-product-wrapper">
+        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+            <div class="single-search-product-wrapper">
+                {% for recom in recomended[3:6] %}
                     <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-4') }}.png" alt=""></a>
+                        <a href="item/{{ recom.id }}"><img src="{{ recom.img }}" alt=""></a>
                         <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
+                            <a href="item/{{ recom.id }}" class="title">{{ recom.title }}</a>
+                            <div class="price">₽{{ recom.price }}</div>
                         </div>
                     </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-5') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-6') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-
-            <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                <div class="single-search-product-wrapper">
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-7') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-8') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-9') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                <div class="single-search-product-wrapper">
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-1') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-2') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                    <div class="single-search-product d-flex">
-                        <a href="#"><img src="{{ url_for('static', filename='img/product/product-sm-3') }}.png" alt=""></a>
-                        <div class="desc">
-                            <a href="#" class="title">Gray Coffee Cup</a>
-                            <div class="price">₽170.00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
         </div>
+
+        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+            <div class="single-search-product-wrapper">
+                {% for recom in recomended[6:9] %}
+                    <div class="single-search-product d-flex">
+                        <a href="item/{{ recom.id }}"><img src="{{ recom.img }}" alt=""></a>
+                        <div class="desc">
+                            <a href="item/{{ recom.id }}" class="title">{{ recom.title }}</a>
+                            <div class="price">₽{{ recom.price }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+                
+        </div>
+
+        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+            <div class="single-search-product-wrapper">
+                {% for recom in recomended[9:12] %}
+                    <div class="single-search-product d-flex">
+                        <a href="item/{{ recom.id }}"><img src="{{ recom.img }}" alt=""></a>
+                        <div class="desc">
+                            <a href="item/{{ recom.id }}" class="title">{{ recom.title }}</a>
+                            <div class="price">₽{{ recom.price }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+                
+        </div>
+
+        
     </div>
 </section>
 {% endblock %}

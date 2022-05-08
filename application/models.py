@@ -231,6 +231,9 @@ def GetItemById(id):
 def GetItemByIdDEF(item_id):
     return Items.query.filter(Items.id == item_id).first()
 
+def GetItemsDef():
+    return Items.query.all()
+
 def GetItems():
 
     lst = []
@@ -333,3 +336,25 @@ def AddReceipt(receipt, id):
 def GetReceipt(id):
     user = Users.query.filter_by(id=id).first()
     return user.receipt
+
+##############  TABLE 'API' ###################
+def API_GetProducts():
+    
+    products = Items.query.all()
+    elements = {}
+
+    for el in products:
+        el = str(el).split("|")
+        elements[  str(el[0])  ] = {
+                                                                    "id" : el[0],
+                                                                    "image" : el[1],
+                                                                    "contact" : "+7XXXXXXXXXX",
+                                                                    "title" : el[3],
+                                                                    "price" : el[4],
+                                                                    "date" : el[5],
+                                                                    "categories" : el[6]
+        }
+
+    return elements
+
+
