@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block content %}
+<section class="blog-banner-area" id="category">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <h1>Add Item</h1>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Item</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="tracking_box_area section-margin--small">
+    <div class="container">
+        <div class="tracking_box_inner">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi, praesentium. Quod magni qui iste fugit necessitatibus atque iure quia! Tenetur cumque maxime totam soluta sed blanditiis aut voluptatem ipsam nisi voluptatum distinctio rem, perferendis
+                dolor, ullam delectus omnis! Eum.</p>
+            <form class="row tracking_form" action="{{ url_for('AddBlog') }}" method="post" novalidate="novalidate">
+
+                <div class="col-md-12 form-group">
+                    <input type="text" class="form-control" id="email" name="title" placeholder="Заголовок блога">
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <input type="text" class="form-control" id="email3" name="img" placeholder="Ссылка на изображение">
+                </div>
+
+
+                <div class="col-md-12 form-group">
+                    <textarea class="form-control rounded" style="height: 100px;" placeholder="Описание блога" name="description"></textarea>
+                </div>
+                <div class="col-md-12 form-group">
+                    <button type="submit" value="submit" class="button button-tracking">Add</button>
+                </div>
+            </div>
+            </form>
+        </div>
+
+
+
+
+
+    </div>
+</section>
+{% endblock %}

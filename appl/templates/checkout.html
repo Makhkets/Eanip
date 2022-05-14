@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Product Checkout</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  
+  
+  <!--================Checkout Area =================-->
+  <section class="checkout_area section-margin--small">
+    <div class="container">
+        <form action="{{ url_for('upbalance') }}" method="post"> 
+            <input name="price">
+            <button>Пополнить баланс</button>
+            <input type="submit" name="check" value="check">
+        </form>
+
+    </div>
+  </section>
+  <!--================End Checkout Area =================-->
+
+{% endblock %}

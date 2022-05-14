@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WayWito Shop - Home</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/Fevicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/themify-icons/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nice-select/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{url_for('static', filename='vendors/nouislider/nouislider.min.css') }}">
+
+
+</head>
+
+<link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+<style>
+    body {
+        background: url(https://bootstraptema.ru/images/bg/bg-1.png)
+    }
+    
+    #main {
+        padding: 20px;
+    }
+    
+    #real-estates-detail #author img {
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -ms-border-radius: 100%;
+        -o-border-radius: 100%;
+        border-radius: 100%;
+        border: 5px solid #ededed;
+        margin-bottom: 10px;
+    }
+    
+    #real-estates-detail .sosmed-author i.fa {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #ededed;
+        color: #ededed;
+        padding-top: 6px;
+        margin-top: 10px;
+    }
+    
+    .panel-default .panel-heading {
+        background-color: #fff;
+    }
+    
+    #real-estates-detail .slides li img {
+        height: 450px;
+    }
+    
+    .nav-item-bar {
+        margin-top: 17px;
+        margin-left: 20px;
+    }
+    /* navbar navbar-expand-lg navbar-light */
+    
+    .main_menu {
+        background-color: #fff;
+    }
+    
+    .card2 {
+        display: flex;
+        margin-bottom: 25px;
+    }
+    
+    .card2 h2 {
+        font-weight: bold
+    }
+    
+    .card2 img {
+        margin-right: 10px;
+        width: 236px;
+        height: 177px;
+        border: none;
+    }
+    
+    .card2 .card_price {
+        color: #000;
+        font-weight: bold;
+        margin-bottom: 2px
+    }
+    
+    .card2 .card_adress {
+        color: #909090;
+    }
+    
+    .card2 .card-href {
+        padding-bottom: auto;
+    }
+    
+    .card2 .card_btn {
+        padding: 7px;
+        background-color: rgb(242, 239, 233);
+        color: #000;
+        border: none;
+        font-size: 13px;
+        border-radius: 7px;
+    }
+    
+    @media (max-width: 390px) {
+        .card2 img {
+            margin-right: 10px;
+            width: 125px;
+            height: 62px;
+            border: none;
+        }
+    }
+    
+    .card2 a {
+        display: block;
+    }
+    
+    .card-link {
+        text-decoration: none;
+        margin-right: 20px;
+    }
+
+    .card-link img {
+        width: 100%;
+    }
+</style>
+
+<body>
+    <!--================ Start Header Menu Area =================-->
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+
+
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+
+                            {% if username == False %}
+                            <li class="nav-item submenu dropdown">
+                                <a href="{{ url_for('register') }}" class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Register</a>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="{{ url_for('login') }}" class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Login</a> {% else %}
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="{{ url_for('profile', user_id=user_id) }}" class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">{{ username }}</a> {% endif %}
+                        </ul>
+
+
+
+
+
+                        <ul class="nav-shop">
+                            <li class="nav-item-bar"><button><i class="ti-search"></i></button></li>
+                            <li class="nav-item-bar"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+                            <li class="nav-item-bar"><a class="button button-header" style="margin: 5px 5px 5px 5px;;" href="/add-item">Добавить товар</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!--================ End Header Menu Area =================-->
+
+<div class="container">
+    <div id="main">
+        <div class="row" id="real-estates-detail">
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <header class="panel-title">
+                            <div class="text-center">
+                                <strong>Пользователь сайта</strong>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center" id="author">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRjZqlgD7-Wv8Fi6437F8MBQqYvts9-nZY8_tTjURyaRoiHTYQHCsDspNsHkrWRrNXmWw&usqp=CAU">
+                            <h3>{{ current_username }}</h3>
+                            <small class="label label-warning">Российская Федерация</small>
+                            <p>Пользователь</p>
+                            <p class="sosmed-author">
+                                <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
+                                <a href="#"><i class="fa fa-google-plus" title="Google Plus"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" title="Linkedin"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-xs-12">
+                <div class="panel" style="width: 900px;">
+                    <div class="panel-body">
+                        <ul id="myTab" class="nav nav-pills">
+                            <li class="active"><a href="#detail" data-toggle="tab">О пользователе</a></li>
+                            <li class=""><a href="#contact" data-toggle="tab">Отправить сообщение</a></li>
+                            <li class=""><a href="#items" data-toggle="tab">Товары</a></li>
+                            
+                            {% if current_user.get_id() == user_id %}
+                                <li class=""><a href="#balance" data-toggle="tab">Баланс</a></li>
+                                <li class=""><a href="#conclusion" data-toggle="tab">Вывод денег</a></li>
+                            {% endif %}
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <hr>
+                            <div class="tab-pane fade active in" id="detail">
+                                <h4>История профиля</h4>
+                                <table class="table table-th-block">
+                                    <tbody>
+                                        <tr>
+                                            <td class="active">Имя пользователя:</td>
+                                            <td>{{ current_username }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Баланс:</td>
+                                            <td>{{ amount }} ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Зарегистрирован:</td>
+                                            <td>{{ date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Почта:</td>
+                                            <td>{{ email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Страна:</td>
+                                            <td>Россия</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Город:</td>
+                                            <td>Грозный</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Айпи адресс:</td>
+                                            <td>{{ ip }}</td>
+                                        </tr>
+                                        <tr>
+                                            {% if current_user.get_id() == user_id %}
+                                                <td class="active">Ваш user_id телеграмма, (его можно узнать в боте @myuser_bot):</td>
+                                                <form action="{{ url_for('profile', user_id=user_id) }}" method="post">
+                                                    <td><input type="text" class="form-control rounded" placeholder="Укажите Ваш USER_ID" name="telegram" value="{{ telegram }}"></td>
+                                                    <td><button type="submit" class="btn btn-success" data-original-title="" title="">Сохранить</button></td>
+                                                </form>
+                                                <tr>
+                                                <td class="active">Введите ваши контакты:</td>
+                                                <form action="{{ url_for('set_contact') }}" method="post">
+                                                    <td><input type="text" class="form-control rounded" placeholder="Укажите ваши контакты" name="contactt" value="{{ contactt }}"></td>
+                                                    <td><button type="submit" class="btn btn-success" data-original-title="" title="">Сохранить</button></td>
+                                                </form>
+                                                </tr>
+                                            {% else %}
+
+                                                <td class="active">UserId для отправки сообщения:</td>
+                                                <td>{{ telegram }}</td>
+                                                <tr>
+                                                    <td class="active">Контакты:</td>
+                                                    <td>{{ contactt }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <td class="active">Рейтинг пользователя:</td>
+                                            <td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="contact">
+                                <p></p>
+                                <form role="form" action="{{ url_for('send_message') }}" method="post">
+                                    <div class="form-group">
+                                        <label>Ваше имя</label>
+                                        <input type="text" class="form-control rounded" name="name" placeholder="Укажите Ваше Имя">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Кому хотите отправить сообщение? (Введите UserId человека с его профиля)</label>
+                                        <input type="text" class="form-control rounded" name="message_user" placeholder="1234567890">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ваш UserId</label>
+                                        <input type="text" class="form-control rounded" placeholder="{{ telegram }}" name="my_id" value="{{ telegram }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Согласен с условиями
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Текст Вашего сообщения</label>
+                                        <textarea class="form-control rounded" name="description" style="height: 100px;"></textarea>
+                                        <p class="help-block">Текст сообщения будет отправлен пользователю</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" data-original-title="" title="">Отправить</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="items">
+                                {% for element in elements %}
+                                    <div>
+                                        <a href="#" class="card-link">
+                                            <div class="card2" style="display: flex;">
+                                                <img src="{{ element.img }}" alt="">
+                                                <div class="card-info">
+                                                    <h2>{{ element.title }}</h2>
+                                                    <p class="card_price">{{ element.price }} ₽</p>
+                                                    <p class="card_adress">address</p>
+                                                    <a class="card_href" href="{{ url_for('ViewItem', item_id=element.id) }}">
+                                                        <button class="card_btn">Посмотреть товар</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                                
+                            </div>
+                            {% if current_user.get_id() == user_id %}
+                                <div class="tab-pane fade " id="balance">
+                                    <h2>Пополнить баланс</h2>
+                                    <form action="/upbalance " method="post">
+                                        <input name="price" placeholder="Сумма пополнения">
+                                        <button>Пополнить баланс</button>
+                                        <input type="submit" name="check" value="Проверить пополнение ">
+                                    </form>
+                                </div>
+                            {% endif %}
+
+                            {% if current_user.get_id() == user_id %}
+                            <div class="tab-pane fade " id="conclusion">
+                                <h2>Вывести деньги с баланса</h2>
+                                <form action="/conclusion " method="post">
+                                    <input name="conclusion_price" placeholder="Сумма вывода">
+                                    <input name="conclusion_phone" placeholder="Номер телефона">
+                                    <button>Вывести</button>
+                                </form>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.main -->
+</div>
+
+    <!--================ Start footer Area  =================-->
+    <footer class="footer">
+        <div class="footer-area">
+            <div class="container">
+                <div class="row section_gap">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-footer-widget tp_widgets">
+                            <h4 class="footer_title large_title">Our Mission</h4>
+                            <p>
+                                So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved us lan Gathering thing us land years living.
+                            </p>
+                            <p>
+                                So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved
+                            </p>
+                        </div>
+                    </div>
+                    <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget tp_widgets">
+                            <h4 class="footer_title">Quick Links</h4>
+                            <ul class="list">
+                                <li><a href="{{ url_for('index') }}">Home</a></li>
+                                <li><a href="#">Shop</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Product</a></li>
+                                <li><a href="#">Brand</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget instafeed">
+                            <h4 class="footer_title">Gallery</h4>
+                            <ul class="list instafeed d-flex flex-wrap">
+                                <li><img src="{{ url_for('static', filename='img/gallery/r1.jpg') }}" alt=""></li>
+                                <li><img src="{{ url_for('static', filename='img/gallery/r2.jpg') }}" alt=""></li>
+                                <li><img src="{{ url_for('static', filename='img/gallery/r3.jpg') }}" alt=""></li>
+                                <li><img src="{{ url_for('static', filename='img/gallery/r5.jpg') }}" alt=""></li>
+                                <li><img src="{{ url_for('static', filename='img/gallery/r7.jpg') }}" alt=""></li>
+                                <li><img src="{{ url_for('static', filename='img/gallery/r8.jpg') }}" alt=""></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-footer-widget tp_widgets">
+                            <h4 class="footer_title">Contact Us</h4>
+                            <div class="ml-40">
+                                <p class="sm-head">
+                                    <span class="fa fa-location-arrow"></span> Head Office
+                                </p>
+                                <p>123, Main Street, Your City</p>
+
+                                <p class="sm-head">
+                                    <span class="fa fa-phone"></span> Phone Number
+                                </p>
+                                <p>
+                                    +123 456 7890 <br> +123 456 7890
+                                </p>
+
+                                <p class="sm-head">
+                                    <span class="fa fa-envelope"></span> Email
+                                </p>
+                                <p>
+                                    free@infoexample.com <br> www.infoexample.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row d-flex">
+                    <p class="col-lg-12 footer-text text-center">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--================ End footer Area  =================-->
+
+
+    <script src="{{ url_for('static', filename='vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/skrollr.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/jquery.ajaxchimp.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/mail-script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+<!-- /.container -->
