@@ -1,0 +1,44 @@
+####################################################
+###################### STEP 1 ######################
+####################################################
+
+R-URL: https://api.qiwi.com/partner/bill/v1/bills/900173
+URL: https://api.qiwi.com/partner/bill/v1/bills/900173
+Code: 401 Unauthorized
+Method: PUT
+
+##################### REQUEST ######################
+Headers:
+
+Host:           api.qiwi.com
+Accept-Encoding: gzip, deflate
+Connection:     keep-alive
+User-Agent:     python-httpx/0.22.0
+Accept:         application/json
+Content-Type:   application/json
+Authorization:  Bearer eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6InVtZWs3NC0wMCIsInVzZXJfaWQiOiI3OTM4ODk1NDI1MCIsInNlY3JldCI6IjQ1MTdhODNkZDQ3MWEyMDkxNWMwMDg3NGJiNDk5NDhkOGRjODY5NTQzNWY0ZTc1Y2NhMzA2ZGVkNzcxYWY0ZGQifX0=
+Content-Length: 154
+
+########### CONTENT ############
+{
+    "amount": {
+        "currency": "RUB",
+        "value": "5.00"
+    },
+    "comment": 900173,
+    "customFields": {},
+    "customer": {},
+    "expirationDateTime": "2022-05-15T23:26:58+03:00"
+}
+######### END CONTENT ##########
+
+##################### RESPONSE #####################
+
+Headers:
+
+Server:         nginx
+Date:           Sun, 15 May 2022 19:46:36 GMT
+Content-Length: 0
+Connection:     keep-alive
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff

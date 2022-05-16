@@ -91,6 +91,30 @@ class Conclusion(db.Model):
     price = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
+class Blog(db.Model):
+    __tablename__ = "blog"
+    __table_args__ = {"extend_existing" : True}
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
+    img = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=False)
+    # comments = db.Column(db.String, default=0)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+
+class BlogComments(db.Model):
+    __tablename__ = "blog_comments"
+    __table_args__ = {"extend_existing" : True}
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String, nullable=False)
+    blog_id = db.Column(db.String, nullable=False)
+    nickname = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, default=datetime.utcnow)
+
+
 ##############  TABLE 'USERS' ###################
 def getUser(user_id):
     try:
@@ -356,5 +380,23 @@ def API_GetProducts():
         }
 
     return elements
+
+##############  TABLE 'BLOG' ###################
+
+def AddBlog(title, description, img, user_id):
+    blog = Blog(title=title, description=description, img=img, user_id=user_id)
+    db.session.add(blog)
+    db.session.commit()
+
+    return 0
+
+def NewBlogArticles():
+    return Blog.query.all()
+    
+def BlogComment(user_id, blog_id, nickname, description):
+    blog = BlogComments(user_id=user_id, blog_id=blog_id, nickname=nickname, description=description)
+    db.session.add(blog)
+    db.session.commit()
+    
 
 
