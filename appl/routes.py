@@ -13,13 +13,13 @@ from appl import *
 
 @app.route("/")
 def index():
-    try:
+    # try:
         with app.app_context():
             db.create_all()
 
         user = models.getUser(current_user.get_id())["username"]
-        return render_template("index.html", username=user, elements=models.GetItems(), user_id=current_user.get_id())
-    except Exception as ex: return str(ex)
+        return render_template("index.html", username=user, elements=models.GetItems(), user_id=current_user.get_id(), blogs=models.Blog.query.all())
+    # except Exception as ex: return str(ex)
 
 @app.errorhandler(401)
 def autherr(error):
@@ -236,16 +236,80 @@ def add_comment():
 def upbalance():
     if request.method == "POST":
 
-        price = request.form.get("price")
-        bill_id = random.randint(111111, 999999)
-        new_bill = p2p.bill(bill_id=bill_id, amount=int(price), lifetime=40,
-                            comment=bill_id)
+        if request.form.get('check') is None:
+
+            price = request.form.get("price")
+            s = requests.Session()
+
+            s.headers["authorization"] = "Bearer " + config.token
+            response_qiwi = s.get(f"https://edge.qiwi.com/payment-history/v2/persons/{config.number}/payments", params={"rows": 1, "operation": "IN"}),
+
+            passwd = list("1234567890ABCDEFGHIGKLMNOPQRSTUVYXWZ")
+            random.shuffle(passwd)
+            random_chars = "".join([random.choice(passwd) for x in range(10)])
+            generate_number_check = str(
+                random.randint(100000000000, 999999999999)
+            )
+
+            qiwi = QiwiP2P(config.secret_key)
+            bill = qiwi.bill(
+                bill_id=generate_number_check,
+                amount=int(price),
+                comment=generate_number_check,
+            )
+            way_pay = "Form"
+            send_requests = bill.pay_url
+
+            models.AddReceipt(generate_number_check, current_user.get_id())
+
+            return redirect(send_requests)
+        else:
+            try:
+
+                receipt = models.GetReceipt(current_user.get_id())
+
+                get_payments = (
+                    config.number,
+                    config.token,
+                    config.secret_key,
+                    config.nickname,
+                    "form",
+                    "True",
+                )
+
+                if (
+                    get_payments[0] != "None"
+                    or get_payments[1] != "None"
+                    or get_payments[2] != "None"
+                ):
+                    qiwi = QiwiP2P(get_payments[2])
+                    pay_comment = qiwi.check(
+                        bill_id=receipt
+                    ).comment  # Получение комментария платежа
+                    pay_status = qiwi.check(bill_id=receipt).status  # Получение статуса платежа
+                    pay_amount = float(
+                        qiwi.check(bill_id=receipt).amount
+                    )  # Получение суммы платежа в рублях
+                    pay_amount = int(pay_amount)
+                    if pay_status == "PAID":             
+                        models.AddReceipt("#", current_user.get_id()) # Заглушка для проверок пополнений
+                        models.AddBalance(current_user.get_id(), int(pay_amount))      # Выдача баланса
 
 
-        # models.AddConclusion(price, current_user.get_id(), "79388954250")
 
-    print(new_bill.bill_id, new_bill.pay_url)
-    return render_template("checkout.html")
+                        return f"<b>✅ Вы успешно пополнили баланс на сумму {pay_amount}руб. Удачи ❤</b>\n<b>📃 Чек:</b> <code>+{receipt}</code><br><a href='/profile'>Вернуться в профиль</a>"
+
+
+                    elif pay_status == "EXPIRED":
+                        return "<b>❌ Время оплаты вышло. Платёж был удалён.</b><br><a href='/profile'>Вернуться в профиль</a>"
+                    elif pay_status == "WAITING":
+                        return "❗ Оплата не была произведена.<br><a href='/profile'>Вернуться в профиль</a>"
+                    elif pay_status == "REJECTED":
+                        return "<b>❌ Счёт был отклонён.</b><br><a href='/profile'>Вернуться в профиль</a>"
+                else:
+
+                    return "❗ Извиняемся за доставленные неудобства,\nпроверка платежа временно недоступна.⏳ Попробуйте чуть позже.<br><a href='/profile'>Вернуться в профиль</a>"
+            except: return "❗ ERROR<br><a href='/profile'>Вернуться в профиль</a>"
 
 @app.route("/conclusion", methods=["POST"])
 @login_required
@@ -404,11 +468,30 @@ def API_products():
 
 @app.route("/blog")
 def blog():
-
-    
-
     return render_template("blog.html", username=models.getUser(current_user.get_id())["username"], cards=models.NewBlogArticles())
     
+@app.route("/blog/<int:id>", methods=["GET", "POST"])
+def blog_page(id):
+
+    if request.method == "POST":
+        
+        description = request.form.get("message")
+        models.BlogComment(
+                                                    nickname=models.getUser(current_user.get_id())["username"],
+                                                    blog_id=id,
+                                                    user_id=current_user.get_id(),
+                                                    description=description
+                            )
+
+    comments = models.BlogComments.query.filter(models.BlogComments.blog_id == id).all()    
+    blog = models.Blog.query.filter(models.Blog.id == id).one()
+
+
+    return render_template("single-blog.html", blog=blog, username=models.getUser(current_user.get_id())["username"], comments_count=len(comments),
+    comments=comments)
+
 
 # Добавлены обработки ошибок и страница ошибки которая обрабатывает ошибки (401, 404)
 # Добавлен блок новости сайта
+
+# сделать а кнопку кликабельной и чтобы комментарий опубликовался
