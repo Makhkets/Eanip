@@ -11,6 +11,9 @@ number = "79640679095"
 nickname = "DECODE"
 TELEGRAM_BOT_TOKEN = "5123458549:AAHtYHPnWSj_GMFMbWrOQ56UEqFY6ssZ6Wo"
 
+crypto_api_url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD"
+crypto_api_key = "1ab5c5ff626beb9cf43d1ffa34f6fbd2fb7a48c819f3952bc7682b4892d1a05d"
+
 categories = {
                                                 "a" : "Транспорт",
                                                 "b" : "Работа",

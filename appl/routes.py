@@ -5,6 +5,9 @@ import requests
 import config
 import random
 
+import httpx
+from bs4 import BeautifulSoup
+
 import json
 from appl.UserLogin import UserLogin as uslg
 from flask import render_template, request, redirect, url_for, flash
@@ -20,6 +23,25 @@ def index():
         user = models.getUser(current_user.get_id())["username"]
         return render_template("index.html", username=user, elements=models.GetItems(), user_id=current_user.get_id(), blogs=models.Blog.query.all())
     # except Exception as ex: return str(ex)
+
+@app.route("/api/crypto")
+def API_crypto():
+    
+    r = httpx.get(config.crypto_api_url, headers={ "authorization" : "Apikey" + config.crypto_api_key})
+
+
+    logger.success(r.json()["Data"][0]["CoinInfo"]["FullName"])
+
+    return f"""
+    
+                                            Name: {r.json()["Data"][0]["CoinInfo"]["FullName"]} <br>
+                                            Image: {r.json()["Data"][0]["CoinInfo"]["ImageUrl"]} <br>
+                                            <br><br>
+                                            Change 24 hour: {r.json()["Data"][0]["DISPLAY"]["USD"]["CHANGE24HOUR"]}
+
+    """
+
+
 
 @app.errorhandler(401)
 def autherr(error):
