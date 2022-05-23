@@ -114,6 +114,14 @@ class BlogComments(db.Model):
     description = db.Column(db.String, nullable=False)
     date = db.Column(db.String, default=datetime.utcnow)
 
+class Basket(db.Model):
+    __tablename__ = "basket"
+    __table_args__ = {"extend_existing" : True}
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String, nullable=False)
+    item_id = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, default=datetime.utcnow)
 
 ##############  TABLE 'USERS' ###################
 def getUser(user_id):
@@ -398,5 +406,18 @@ def BlogComment(user_id, blog_id, nickname, description):
     db.session.add(blog)
     db.session.commit()
     
+##############  TABLE 'BASKET' ###################
+def GetBasket(user_id):
+    return Basket.query.filter(Basket.user_id == user_id).all()
 
+def GetHearts(user_id):
+    elements = GetBasket(user_id)
+    
+    ids = []
 
+    for element in elements:
+        answer_db = GetItemByIdDEF(element.item_id)
+        if str(answer_db.view) == "1":
+            ids.append(answer_db)
+
+    return ids

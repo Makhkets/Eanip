@@ -1,4 +1,5 @@
 from datetime import datetime
+from appl.models import GetBasket
 from loguru import logger
 from pyqiwip2p import QiwiP2P
 import requests
@@ -165,7 +166,9 @@ def profile(user_id):
                                                     telegram=user["telegram"],
                                                     user_id=user_id,
                                                     notfications=notfications,
-                                                    contactt=user["contact"]
+                                                    contactt=user["contact"],
+
+                                                    baskets=models.GetHearts(current_user.get_id())
                             )
 
 
@@ -512,8 +515,12 @@ def blog_page(id):
     return render_template("single-blog.html", blog=blog, username=models.getUser(current_user.get_id())["username"], comments_count=len(comments),
     comments=comments)
 
+@app.route("/product/<int:id>/heart")
+def basket(id):
 
-# Добавлены обработки ошибок и страница ошибки которая обрабатывает ошибки (401, 404)
-# Добавлен блок новости сайта
+    item = models.Basket(user_id=current_user.get_id(), item_id=id)
+    models.db.session.add(item)
+    models.db.session.commit()
 
-# сделать а кнопку кликабельной и чтобы комментарий опубликовался
+
+    return redirect(url_for('products'))

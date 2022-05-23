@@ -151,9 +151,7 @@
                                     <div class="card-product__img">
                                         <img class="card-img" src="{{ product.img }}" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
-                                            <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
+                                            <a href="/product/{{ product.id }}/heart"><li><button><i class="ti-heart"></i></button></li></a>
                                         </ul>
                                     </div>
                                     <div class="card-body">

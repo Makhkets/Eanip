@@ -235,12 +235,13 @@
                     <div class="panel-body">
                         <ul id="myTab" class="nav nav-pills">
                             <li class="active"><a href="#detail" data-toggle="tab">О пользователе</a></li>
-                            <li class=""><a href="#contact" data-toggle="tab">Отправить сообщение</a></li>
+                            <!-- <li class=""><a href="#contact" data-toggle="tab">Отправить сообщение</a></li> -->
                             <li class=""><a href="#items" data-toggle="tab">Товары</a></li>
                             
                             {% if current_user.get_id() == user_id %}
                                 <li class=""><a href="#balance" data-toggle="tab">Баланс</a></li>
                                 <li class=""><a href="#conclusion" data-toggle="tab">Вывод денег</a></li>
+                                <li class=""><a href="#basket" data-toggle="tab">Корзина</a></li>
                             {% endif %}
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -279,11 +280,11 @@
                                         </tr>
                                         <tr>
                                             {% if current_user.get_id() == user_id %}
-                                                <td class="active">Ваш user_id телеграмма, (его можно узнать в боте @myuser_bot):</td>
+                                                <!-- <td class="active">Ваш user_id телеграмма, (его можно узнать в боте @myuser_bot):</td>
                                                 <form action="{{ url_for('profile', user_id=user_id) }}" method="post">
                                                     <td><input type="text" class="form-control rounded" placeholder="Укажите Ваш USER_ID" name="telegram" value="{{ telegram }}"></td>
                                                     <td><button type="submit" class="btn btn-success" data-original-title="" title="">Сохранить</button></td>
-                                                </form>
+                                                </form> -->
                                                 <tr>
                                                 <td class="active">Введите ваши контакты:</td>
                                                 <form action="{{ url_for('set_contact') }}" method="post">
@@ -293,8 +294,8 @@
                                                 </tr>
                                             {% else %}
 
-                                                <td class="active">UserId для отправки сообщения:</td>
-                                                <td>{{ telegram }}</td>
+                                                <!-- <td class="active">UserId для отправки сообщения:</td>
+                                                <td>{{ telegram }}</td> -->
                                                 <tr>
                                                     <td class="active">Контакты:</td>
                                                     <td>{{ contactt }}</td>
@@ -315,10 +316,10 @@
                                         <label>Ваше имя</label>
                                         <input type="text" class="form-control rounded" name="name" placeholder="Укажите Ваше Имя">
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label>Кому хотите отправить сообщение? (Введите UserId человека с его профиля)</label>
                                         <input type="text" class="form-control rounded" name="message_user" placeholder="1234567890">
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label>Ваш UserId</label>
                                         <input type="text" class="form-control rounded" placeholder="{{ telegram }}" name="my_id" value="{{ telegram }}" readonly>
@@ -379,6 +380,29 @@
                                     <input name="conclusion_phone" placeholder="Номер телефона">
                                     <button>Вывести</button>
                                 </form>
+                            </div>
+                            {% endif %}
+
+                            {% if current_user.get_id() == user_id %}
+                            <div class="tab-pane fade" id="basket">
+                                {% for basket in baskets %}
+                                    <div>
+                                        <a href="#" class="card-link">
+                                            <div class="card2" style="display: flex;">
+                                                <img src="{{ basket.img }}" alt="">
+                                                <div class="card-info">
+                                                    <h2>{{ basket.title }}</h2>
+                                                    <p class="card_price">{{ basket.price }} ₽</p>
+                                                    <p class="card_adress">address</p>
+                                                    <a class="card_href" href="{{ url_for('ViewItem', item_id=basket.id) }}">
+                                                        <button class="card_btn">Посмотреть товар</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                                
                             </div>
                             {% endif %}
 
