@@ -22,7 +22,7 @@ configparser==5.2.0
 cryptography==37.0.2
 decorator==5.1.1
 defusedxml==0.7.1
-Django==4.0.4
+Django==4.0.6
 dnspython==2.2.1
 email-validator==1.2.1
 Flask==2.1.2
